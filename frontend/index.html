@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Premium haircut booking system. Book your next grooming session with top-rated barbers. Classic cuts, beard trims, and luxury styling services.">
+  <title>SharpCuts - Premium Barbershop & Grooming</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">✂️</div>
+        <div class="logo-text">Sharp<span>Cuts</span></div>
+      </a>
+
+      <div class="navbar-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="#services">Services</a>
+        <a href="#why-us">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="navbar-actions" id="navActions">
+        <a href="login.html" class="btn btn-ghost">Sign In</a>
+        <a href="register.html" class="btn btn-primary">Book Now</a>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <img src="assets/images/hero-bg.png" alt="Premium Barbershop Interior">
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Now accepting online bookings
+        </div>
+        <h1>
+          Elevate Your<br>
+          <span class="highlight">Grooming</span> Game
+        </h1>
+        <p class="hero-description">
+          Experience premium grooming services with our team of expert barbers. 
+          From classic cuts to modern styles — we craft the perfect look for you.
+        </p>
+        <div class="hero-buttons">
+          <a href="register.html" class="btn btn-primary btn-lg">
+            Book Appointment →
+          </a>
+          <a href="#services" class="btn btn-outline btn-lg">
+            Our Services
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="number">5K+</span>
+            <span class="label">Happy Clients</span>
+          </div>
+          <div class="hero-stat">
+            <span class="number">12+</span>
+            <span class="label">Expert Barbers</span>
+          </div>
+          <div class="hero-stat">
+            <span class="number">4.9</span>
+            <span class="label">Average Rating</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Decor -->
+    <div class="hero-decor">
+      <div class="hero-decor-item">💈</div>
+      <div class="hero-decor-item">✂️</div>
+      <div class="hero-decor-item">🪒</div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title scroll-animate">Our Services</h2>
+      <p class="section-subtitle scroll-animate">Premium grooming experiences tailored to your style. Every visit is a cut above the rest.</p>
+
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card scroll-animate">
+          <div class="service-card-image">
+            <img src="assets/images/haircut-service.png" alt="Classic Haircut">
+            <span class="price-badge">From $35</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Classic Haircut</h3>
+            <p>Precision cuts tailored to your face shape and personal style. Includes consultation, wash, cut, and styling.</p>
+            <div class="service-card-meta">
+              <span class="duration">⏱ 45 min</span>
+              <a href="javascript:void(0)" onclick="initiateBooking('Classic Haircut', '$35')" class="book-link">Book Now →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card scroll-animate">
+          <div class="service-card-image">
+            <img src="assets/images/beard-service.png" alt="Beard Trim & Shaping">
+            <span class="price-badge">From $25</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Beard Trim & Shaping</h3>
+            <p>Expert beard grooming with precision trimming, hot towel treatment, and nourishing beard oil application.</p>
+            <div class="service-card-meta">
+              <span class="duration">⏱ 30 min</span>
+              <a href="javascript:void(0)" onclick="initiateBooking('Beard Trim & Shaping', '$25')" class="book-link">Book Now →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card scroll-animate">
+          <div class="service-card-image">
+            <img src="assets/images/styling-service.png" alt="Premium Styling">
+            <span class="price-badge">From $50</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Premium Styling</h3>
+            <p>Complete transformation with premium products. Includes haircut, wash, styling, and personalized grooming tips.</p>
+            <div class="service-card-meta">
+              <span class="duration">⏱ 60 min</span>
+              <a href="javascript:void(0)" onclick="initiateBooking('Premium Styling', '$50')" class="book-link">Book Now →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <h2 class="section-title scroll-animate">Why Choose Us</h2>
+      <p class="section-subtitle scroll-animate">We're not just a barbershop — we're an experience crafted for the modern gentleman.</p>
+
+      <div class="why-us-grid">
+        <div class="why-us-card scroll-animate">
+          <div class="icon">🏆</div>
+          <h3>Expert Barbers</h3>
+          <p>Our team consists of award‑winning barbers with 10+ years of experience in the craft.</p>
+        </div>
+        <div class="why-us-card scroll-animate">
+          <div class="icon">📅</div>
+          <h3>Easy Booking</h3>
+          <p>Book your appointment online in seconds. Choose your barber, time, and service effortlessly.</p>
+        </div>
+        <div class="why-us-card scroll-animate">
+          <div class="icon">💎</div>
+          <h3>Premium Products</h3>
+          <p>We use only the finest grooming products to ensure your hair looks and feels amazing.</p>
+        </div>
+        <div class="why-us-card scroll-animate">
+          <div class="icon">⭐</div>
+          <h3>5-Star Service</h3>
+          <p>Rated 4.9 out of 5 by over 5,000 satisfied clients. Your satisfaction is guaranteed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta" id="contact">
+    <div class="container">
+      <div class="cta-content scroll-animate">
+        <h2>Ready for a <span class="highlight">Fresh Look</span>?</h2>
+        <p>Book your appointment today and experience the SharpCuts difference. New clients get 20% off their first visit.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="register.html" class="btn btn-primary btn-lg">Get Started Free</a>
+          <a href="login.html" class="btn btn-outline btn-lg">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo-text">Sharp<span>Cuts</span></div>
+          <p>Premium barbershop and grooming services. Elevating your style since 2020.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="Instagram">📸</a>
+            <a href="#" aria-label="Twitter">🐦</a>
+            <a href="#" aria-label="YouTube">📺</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Classic Haircut</a></li>
+            <li><a href="#">Beard Trim</a></li>
+            <li><a href="#">Premium Styling</a></li>
+            <li><a href="#">Hot Towel Shave</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Help Center</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 SharpCuts. All rights reserved. Crafted with ✂️ & ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeBookingModal()">&times;</span>
+      <div class="modal-header">
+        <h2>Confirm Booking</h2>
+        <p>Complete the details below to secure your spot</p>
+      </div>
+
+      <div class="booking-summary">
+        <div class="summary-item">
+          <span class="summary-label">Selected Service</span>
+          <span class="summary-value" id="bookingModalService">-</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Estimated Price</span>
+          <span class="summary-value total" id="bookingModalPrice">-</span>
+        </div>
+      </div>
+
+      <form class="booking-form" id="bookingForm">
+        <div class="form-group">
+          <label for="bookingDate">Select Date</label>
+          <input type="date" id="bookingDate" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="bookingTime">Select Time Slot</label>
+          <select id="bookingTime" class="form-input" required>
+            <option value="" disabled selected>Choose a time</option>
+            <option value="09:00 AM">09:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="02:00 PM">02:00 PM</option>
+            <option value="03:00 PM">03:00 PM</option>
+            <option value="04:00 PM">04:00 PM</option>
+            <option value="05:00 PM">05:00 PM</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="confirmBookingBtn">
+          Confirm Appointment
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

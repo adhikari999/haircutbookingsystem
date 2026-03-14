@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your SharpCuts profile - manage your appointments, bookings, and personal information.">
+  <title>My Profile - SharpCuts</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ---- Profile Page Styles ---- */
+    .profile-page {
+      min-height: 100vh;
+      padding-top: 100px;
+      padding-bottom: var(--space-4xl);
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .profile-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: var(--radius-full);
+      background: var(--gradient-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      margin: 0 auto var(--space-lg);
+      position: relative;
+      box-shadow: var(--shadow-gold-lg);
+    }
+
+    .profile-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--color-gold);
+      opacity: 0.3;
+      animation: pulse-glow 3s ease infinite;
+    }
+
+    .profile-avatar .status-dot {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 18px;
+      height: 18px;
+      background: var(--color-success);
+      border-radius: var(--radius-full);
+      border: 3px solid var(--color-bg-primary);
+    }
+
+    .profile-header h1 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: var(--space-xs);
+    }
+
+    .profile-header .profile-role {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--color-gold-glow);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      padding: 0.3rem 0.9rem;
+      border-radius: var(--radius-xl);
+      font-size: 0.85rem;
+      color: var(--color-gold);
+      font-weight: 500;
+      margin-top: var(--space-sm);
+    }
+
+    .profile-header .member-since {
+      color: var(--color-text-muted);
+      font-size: 0.88rem;
+      margin-top: var(--space-sm);
+    }
+
+    /* Profile Grid */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .profile-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      transition: all var(--transition-base);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .profile-card:hover {
+      border-color: var(--color-border-hover);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .profile-card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .profile-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-xl);
+    }
+
+    .profile-card-header h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .profile-card-header .edit-btn {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: transparent;
+    }
+
+    .profile-card-header .edit-btn:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+      background: var(--color-gold-glow);
+    }
+
+    /* Info Rows */
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .info-row:first-child {
+      padding-top: 0;
+    }
+
+    .info-label {
+      color: var(--color-text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .info-value {
+      color: var(--color-text-primary);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Quick Stats */
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: var(--space-lg);
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-base);
+    }
+
+    .stat-item:hover {
+      border-color: var(--color-border-hover);
+      background: var(--color-gold-glow);
+    }
+
+    .stat-item .stat-number {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--color-gold);
+      display: block;
+    }
+
+    .stat-item .stat-label {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-xs);
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      text-decoration: none;
+    }
+
+    .action-btn:hover {
+      border-color: var(--color-border-hover);
+      background: var(--color-gold-glow);
+      transform: translateY(-2px);
+    }
+
+    .action-btn .action-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-gold-glow);
+      border-radius: var(--radius-md);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .action-btn .action-text h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .action-btn .action-text p {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Logout Button */
+    .logout-section {
+      text-align: center;
+      margin-top: var(--space-2xl);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .btn-logout {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 0.7rem 2rem;
+      border: 1px solid rgba(231, 76, 60, 0.3);
+      border-radius: var(--radius-md);
+      color: var(--color-error);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: transparent;
+      transition: all var(--transition-base);
+    }
+
+    .btn-logout:hover {
+      background: rgba(231, 76, 60, 0.1);
+      border-color: var(--color-error);
+      transform: translateY(-2px);
+    }
+
+    /* Welcome toast */
+    .welcome-toast {
+      position: fixed;
+      top: 90px;
+      right: 30px;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg) var(--space-xl);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      z-index: 1100;
+      animation: slideInRight 0.5s ease forwards;
+      box-shadow: var(--shadow-lg);
+      max-width: 380px;
+    }
+
+    .welcome-toast .toast-icon {
+      font-size: 1.8rem;
+    }
+
+    .welcome-toast .toast-content h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-success);
+      margin-bottom: 2px;
+    }
+
+    .welcome-toast .toast-content p {
+      font-size: 0.82rem;
+      color: var(--color-text-secondary);
+    }
+
+    .welcome-toast.hide {
+      animation: slideOutRight 0.4s ease forwards;
+    }
+
+    @keyframes slideOutRight {
+      to {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .welcome-toast {
+        right: 15px;
+        left: 15px;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">✂️</div>
+        <div class="logo-text">Sharp<span>Cuts</span></div>
+      </a>
+
+      <div class="navbar-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#why-us">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+
+      <div class="navbar-actions" id="navActions">
+        <a href="profile.html" class="btn btn-ghost" style="color: var(--color-gold);">👤 Profile</a>
+        <button class="btn btn-outline" id="navLogoutBtn" onclick="handleLogout()">Logout</button>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- Welcome Toast (shown on first login) -->
+  <div class="welcome-toast" id="welcomeToast" style="display: none;">
+    <span class="toast-icon">🎉</span>
+    <div class="toast-content">
+      <h4>Welcome to SharpCuts!</h4>
+      <p>You're all set. Book your first appointment today!</p>
+    </div>
+  </div>
+
+  <!-- Profile Page -->
+  <main class="profile-page">
+    <div class="container">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <span id="avatarInitial">👤</span>
+          <div class="status-dot"></div>
+        </div>
+        <h1 id="profileName">Loading...</h1>
+        <div class="profile-role">
+          <span id="profileRoleIcon">👤</span>
+          <span id="profileRole">-</span>
+        </div>
+        <p class="member-since">Member since <span id="memberSince">-</span></p>
+      </div>
+
+      <!-- Profile Grid -->
+      <div class="profile-grid">
+        <!-- Personal Info Card -->
+        <div class="profile-card" style="animation-delay: 0.1s;">
+          <div class="profile-card-header">
+            <h2>👤 Personal Info</h2>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Full Name</span>
+            <span class="info-value" id="infoName">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value" id="infoEmail">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Phone</span>
+            <span class="info-value" id="infoPhone">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Role</span>
+            <span class="info-value" id="infoRole">-</span>
+          </div>
+        </div>
+
+        <!-- Quick Stats Card -->
+        <div class="profile-card" style="animation-delay: 0.2s;">
+          <div class="profile-card-header">
+            <h2>📊 Overview</h2>
+          </div>
+          <div class="quick-stats">
+            <div class="stat-item">
+              <span class="stat-number" id="statBookings">0</span>
+              <span class="stat-label">Bookings</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" id="statCompleted">0</span>
+              <span class="stat-label">Completed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" id="statStatus">⭐</span>
+              <span class="stat-label">New Member</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Appointments Card -->
+        <div class="profile-card full-width" style="animation-delay: 0.25s;">
+          <div class="profile-card-header">
+            <h2>📅 My Appointments</h2>
+            <a href="index.html#services" class="edit-btn">Book New</a>
+          </div>
+          <div id="bookingsList">
+            <p style="text-align: center; color: var(--color-text-muted); padding: 2rem;">Loading your appointments...</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions Card -->
+        <div class="profile-card full-width" style="animation-delay: 0.3s;">
+          <div class="profile-card-header">
+            <h2>⚡ Quick Actions</h2>
+          </div>
+          <div class="quick-actions">
+            <a href="index.html#services" class="action-btn">
+              <div class="action-icon">📅</div>
+              <div class="action-text">
+                <h4>Book Appointment</h4>
+                <p>Schedule your next grooming session</p>
+              </div>
+            </a>
+            <a href="index.html#services" class="action-btn">
+              <div class="action-icon">✂️</div>
+              <div class="action-text">
+                <h4>Browse Services</h4>
+                <p>Explore our premium services</p>
+              </div>
+            </a>
+            <a href="index.html#contact" class="action-btn">
+              <div class="action-icon">💬</div>
+              <div class="action-text">
+                <h4>Contact Support</h4>
+                <p>Get help from our team</p>
+              </div>
+            </a>
+            <a href="index.html" class="action-btn">
+              <div class="action-icon">🏠</div>
+              <div class="action-text">
+                <h4>Back to Home</h4>
+                <p>Return to the homepage</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logout -->
+      <div class="logout-section">
+        <button class="btn-logout" onclick="handleLogout()">
+          🚪 Sign Out
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 SharpCuts. All rights reserved. Crafted with ✂️ & ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ---- Profile Page Logic ----
+    const API_BASE_URL = 'http://localhost:5000/api';
+
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+
+    if (!token || !userData) {
+      // Not logged in, redirect to login
+      window.location.href = 'login.html';
+    } else {
+      const user = JSON.parse(userData);
+
+      // Populate profile data
+      document.getElementById('profileName').textContent = user.name || 'User';
+      document.getElementById('profileRole').textContent = capitalizeRole(user.role);
+      document.getElementById('profileRoleIcon').textContent = user.role === 'barber' ? '💈' : '👤';
+
+      // Avatar initial
+      const initials = user.name ? user.name.charAt(0).toUpperCase() : '👤';
+      document.getElementById('avatarInitial').textContent = initials;
+
+      // Personal info
+      document.getElementById('infoName').textContent = user.name || '-';
+      document.getElementById('infoEmail').textContent = user.email || '-';
+      document.getElementById('infoPhone').textContent = user.phone || '-';
+      document.getElementById('infoRole').textContent = capitalizeRole(user.role);
+
+      // Member since
+      const now = new Date();
+      const months = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
+      document.getElementById('memberSince').textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
+
+      // Show welcome toast on first visit
+      const hasVisited = localStorage.getItem('profileVisited');
+      if (!hasVisited) {
+        const toast = document.getElementById('welcomeToast');
+        toast.style.display = 'flex';
+        localStorage.setItem('profileVisited', 'true');
+
+        // Auto-hide toast
+        setTimeout(() => {
+          toast.classList.add('hide');
+          setTimeout(() => {
+            toast.style.display = 'none';
+          }, 400);
+        }, 4000);
+      }
+    }
+
+    function capitalizeRole(role) {
+      if (!role) return '-';
+      return role.charAt(0).toUpperCase() + role.slice(1);
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('profileVisited');
+      window.location.href = 'login.html';
+    }
+
+    // Fetch and display bookings
+    async function fetchBookings() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/bookings/mybookings`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        const bookings = await response.json();
+        const listContainer = document.getElementById('bookingsList');
+        
+        if (!response.ok) {
+          listContainer.innerHTML = `<p style="text-align: center; color: var(--color-error);">Failed to load bookings</p>`;
+          return;
+        }
+
+        if (bookings.length === 0) {
+          listContainer.innerHTML = `
+            <div style="text-align: center; padding: 2rem;">
+              <p style="color: var(--color-text-muted); margin-bottom: 1rem;">You don't have any bookings yet.</p>
+              <a href="index.html#services" class="btn btn-primary">Book Your First Appointment</a>
+            </div>
+          `;
+          return;
+        }
+
+        // Update stats
+        document.getElementById('statBookings').textContent = bookings.length;
+        const completedCount = bookings.filter(b => b.status === 'completed').length;
+        document.getElementById('statCompleted').textContent = completedCount;
+        if (bookings.length > 5) document.getElementById('statStatus').textContent = '🎖️';
+
+        // Render list
+        listContainer.innerHTML = bookings.map(booking => `
+          <div class="info-row" style="flex-wrap: wrap; gap: 1rem; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 200px;">
+              <div style="width: 48px; height: 48px; background: var(--color-surface); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                ${getServiceIcon(booking.service)}
+              </div>
+              <div>
+                <h4 style="font-size: 0.95rem; font-weight: 600;">${booking.service}</h4>
+                <p style="font-size: 0.82rem; color: var(--color-text-muted);">${formatDate(booking.date)} at ${booking.time}</p>
+              </div>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 2rem;">
+              <div class="status-badge ${booking.status}" style="padding: 0.2rem 0.7rem; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; background: ${getStatusBg(booking.status)}; color: ${getStatusColor(booking.status)}; border: 1px solid ${getStatusBorder(booking.status)};">
+                ${booking.status}
+              </div>
+              <span style="font-weight: 700; color: var(--color-gold); min-width: 50px; text-align: right;">$${booking.totalPrice}</span>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        console.error('Error fetching bookings:', error);
+      }
+    }
+
+    function getServiceIcon(service) {
+      if (service.includes('Haircut')) return '✂️';
+      if (service.includes('Beard')) return '🪒';
+      if (service.includes('Styling')) return '🧴';
+      return '💈';
+    }
+
+    function formatDate(dateString) {
+      const options = { weekday: 'short', month: 'short', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
+    function getStatusBg(status) {
+      if (status === 'confirmed') return 'rgba(46, 204, 113, 0.1)';
+      if (status === 'pending') return 'rgba(243, 156, 18, 0.1)';
+      if (status === 'cancelled') return 'rgba(231, 76, 60, 0.1)';
+      return 'rgba(255, 255, 255, 0.05)';
+    }
+
+    function getStatusColor(status) {
+      if (status === 'confirmed') return 'var(--color-success)';
+      if (status === 'pending') return 'var(--color-warning)';
+      if (status === 'cancelled') return 'var(--color-error)';
+      return 'var(--color-text-muted)';
+    }
+
+    function getStatusBorder(status) {
+      if (status === 'confirmed') return 'rgba(46, 204, 113, 0.3)';
+      if (status === 'pending') return 'rgba(243, 156, 18, 0.3)';
+      if (status === 'cancelled') return 'rgba(231, 76, 60, 0.3)';
+      return 'rgba(255, 255, 255, 0.1)';
+    }
+
+    if (token) fetchBookings();
+
+    console.log('%c👤 Profile Page Loaded', 'color: #d4af37; font-size: 12px;');
+  </script>
+</body>
+</html>
