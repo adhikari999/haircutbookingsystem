@@ -176,7 +176,7 @@ if (heroSection) {
   heroObserver.observe(heroSection);
 }
 
-// ---- Page Load Animation ----
+// ---- Page Load Animation & Session Management ----
 document.addEventListener('DOMContentLoaded', () => {
   document.body.style.opacity = '0';
   requestAnimationFrame(() => {
@@ -184,8 +184,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.opacity = '1';
   });
 
-  // ---- Dynamic Navbar based on auth state ----
+  // Handle Session & Navbar
   updateNavbarAuth();
+  
+  // Expose global logout for inline onclicks
+  window.handleLogout = handleLogout;
 });
 
 function updateNavbarAuth() {
@@ -193,25 +196,69 @@ function updateNavbarAuth() {
   const user = localStorage.getItem('user');
   const navActionsEl = document.getElementById('navActions');
   
-  // Skip if no nav actions element or if on profile page (it has its own nav)
-  if (!navActionsEl || document.querySelector('.profile-page')) return;
+  if (!navActionsEl) return;
   
   if (token && user) {
     const userData = JSON.parse(user);
-    const firstName = userData.name ? userData.name.split(' ')[0] : 'Profile';
+    const firstName = userData.name ? userData.name.split(' ')[0] : 'Member';
+    const role = userData.role;
+    const roleIcon = role === 'barber' ? '💈' : role === 'admin' ? '👑' : '👤';
+
+    // Determine the right dashboard path based on role and current page depth
+    const pathname = window.location.pathname;
+    const depth = (pathname.match(/\//g) || []).length;
+    const prefix = depth > 2 ? '../' : '';
+    
+    let dashPath;
+    if (role === 'admin') {
+      dashPath = `${prefix}admin/dashboard.html`;
+    } else if (role === 'barber') {
+      dashPath = `${prefix}barber/dashboard.html`;
+    } else {
+      dashPath = `${prefix}profile/profile.html`;
+    }
+
     navActionsEl.innerHTML = `
-      <a href="profile.html" class="btn btn-ghost" style="color: var(--color-gold);">👤 ${firstName}</a>
-      <button class="btn btn-outline" onclick="handleLogout()">Logout</button>
+      <a href="${dashPath}" class="btn btn-ghost" style="color: var(--color-gold); font-weight: 700;">
+        ${roleIcon} Hello, ${firstName}
+      </a>
+      <button class="btn btn-outline" onclick="handleLogout()" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+        Logout
+      </button>
     `;
+
+    // Update Hero buttons if on the homepage
+    const heroButtons = document.querySelector('.hero-buttons');
+    if (heroButtons) {
+      heroButtons.innerHTML = `
+        <a href="${dashPath}" class="btn btn-primary btn-lg">View Dashboard →</a>
+        <a href="#services" class="btn btn-outline btn-lg">Our Services</a>
+      `;
+    }
+
+    // Update CTA section if present
+    const ctaContent = document.querySelector('.cta-content div');
+    if (ctaContent) {
+      ctaContent.innerHTML = `<a href="${dashPath}" class="btn btn-primary btn-lg">Go to My Dashboard</a>`;
+    }
   }
 }
 
+
 function handleLogout() {
+  // Clear all session data
   localStorage.removeItem('token');
   localStorage.removeItem('user');
   localStorage.removeItem('profileVisited');
-  window.location.href = 'login.html';
+  
+  // Determine redirect path back to auth
+  const isSubdir = window.location.pathname.includes('/auth/') || window.location.pathname.includes('/profile/');
+  const authPath = isSubdir ? 
+    (window.location.pathname.includes('/auth/') ? 'auth.html' : '../auth/auth.html') : 
+    'auth/auth.html';
+  
+  window.location.href = authPath;
 }
 
-console.log('%c✂️ SharpCuts', 'color: #d4af37; font-size: 24px; font-weight: bold;');
+console.log('%c✂️ EasyCut', 'color: #d4af37; font-size: 24px; font-weight: bold;');
 console.log('%cPremium Barbershop & Grooming', 'color: #a0a0a0; font-size: 12px;');

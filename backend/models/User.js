@@ -26,6 +26,18 @@ const userSchema = new mongoose.Schema(
       enum: ['customer', 'barber', 'admin'],
       default: 'customer',
     },
+    isVerified: {
+      type: Boolean,
+      default: false, // barbers need admin approval
+    },
+    specialization: {
+      type: String,
+      default: '',
+    },
+    experience: {
+      type: String,
+      default: '',
+    },
   },
   {
     timestamps: true,

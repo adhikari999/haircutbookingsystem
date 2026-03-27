@@ -4,11 +4,19 @@ const {
   createBooking,
   getMyBookings,
   cancelBooking,
+  getAllBookings,
+  getBarberStats,
+  updateBookingStatus
 } = require('../controllers/bookingController');
-const { protect } = require('../middleware/authMiddleware');
+const { protect, barber } = require('../middleware/authMiddleware');
 
 router.post('/', protect, createBooking);
 router.get('/mybookings', protect, getMyBookings);
 router.put('/:id/cancel', protect, cancelBooking);
+
+// Barber routes
+router.get('/all', protect, barber, getAllBookings);
+router.get('/stats', protect, barber, getBarberStats);
+router.put('/:id/status', protect, barber, updateBookingStatus);
 
 module.exports = router;

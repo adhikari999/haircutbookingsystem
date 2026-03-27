@@ -19,14 +19,15 @@ const protect = async (req, res, next) => {
       req.user = await User.findById(decoded.id).select('-password');
 
       next();
+      return;
     } catch (error) {
       console.error(error);
-      res.status(401).json({ message: 'Not authorized, token failed' });
+      return res.status(401).json({ message: 'Not authorized, token failed' });
     }
   }
 
   if (!token) {
-    res.status(401).json({ message: 'Not authorized, no token' });
+    return res.status(401).json({ message: 'Not authorized, no token' });
   }
 };
 
@@ -39,4 +40,22 @@ const admin = (req, res, next) => {
   }
 };
 
-module.exports = { protect, admin };
+// Barber middleware
+const barber = (req, res, next) => {
+  if (req.user && (req.user.role === 'barber' || req.user.role === 'admin')) {
+    next();
+  } else {
+    res.status(403).json({ message: 'Not authorized as a barber' });
+  }
+};
+
+// Customer middleware
+const customer = (req, res, next) => {
+  if (req.user && req.user.role === 'customer') {
+    next();
+  } else {
+    res.status(403).json({ message: 'Not authorized as a customer' });
+  }
+};
+
+module.exports = { protect, admin, barber, customer };

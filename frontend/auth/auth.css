@@ -1,0 +1,179 @@
+/* ============================================
+   AUTH PORTAL STYLES (Unified)
+   ============================================ */
+
+.auth-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px 40px;
+  background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 600px);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--gradient-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-lg);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.auth-tabs {
+  display: flex;
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-xl);
+  border: 1px solid var(--color-border);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 0.8rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 2;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-base);
+}
+
+.tab-btn.active {
+  color: #0a0a0a;
+}
+
+.tab-slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: var(--gradient-gold);
+  border-radius: var(--radius-sm);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1;
+}
+
+.auth-tabs[data-active="register"] .tab-slider {
+  transform: translateX(100%);
+}
+
+.auth-content {
+  display: none;
+}
+
+.auth-content.active {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.auth-header h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-gold);
+}
+
+.auth-header p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gold);
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.8rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: #fff;
+  transition: all var(--transition-base);
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.03);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 5px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  font-size: 0.85rem;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.forgot-link {
+  color: var(--color-gold);
+}
+
+
+
+.form-message {
+  padding: 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.form-message.success { display: block; background: rgba(46, 204, 113, 0.1); color: var(--color-success); border: 1px solid var(--color-success); }
+.form-message.error { display: block; background: rgba(231, 76, 60, 0.1); color: var(--color-error); border: 1px solid var(--color-error); }
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+}

@@ -8,7 +8,7 @@ const API_BOOKING_URL = 'http://localhost:5000/api/bookings';
 function initiateBooking(serviceName, price) {
   const token = localStorage.getItem('token');
   if (!token) {
-    window.location.href = 'login.html?message=please_login_to_book';
+    window.location.href = 'auth/auth.html?message=please_login_to_book';
     return;
   }
 
@@ -69,7 +69,7 @@ if (bookingForm) {
         // Successful booking
         closeBookingModal();
         alert('Booking Confirmed! Check your profile for details.');
-        window.location.href = 'profile.html';
+        window.location.href = 'profile/profile.html';
       } else {
         alert(data.message || 'Booking failed. Try again.');
       }

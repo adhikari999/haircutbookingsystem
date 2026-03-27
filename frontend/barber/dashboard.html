@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barber Dashboard - EasyCut</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="barber-layout">
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="navbar-logo">
+                <div class="logo-icon">✂️</div>
+                <div class="logo-text">Easy<span>Cut</span></div>
+            </a>
+            <div class="navbar-actions">
+                <span id="barberName">Barber Mode</span>
+                <button onclick="logout()" class="btn btn-ghost">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-user">
+                <div class="user-avatar">💈</div>
+                <h3 id="sidebarName">Barber Name</h3>
+                <p>Management Portal</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="active">Overview</a>
+                <a href="#schedule">Daily Schedule</a>
+                <a href="#history">Booking History</a>
+                <a href="#performance">Performance</a>
+            </nav>
+        </aside>
+
+        <section class="content-area">
+            <!-- Stats Overview -->
+            <div id="overview" class="tab-content active">
+                <h2 class="page-title">Dashboard Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Total Bookings</span>
+                        <span class="stat-value" id="totalBookings">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Pending</span>
+                        <span class="stat-value" id="pendingBookings">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-value" id="completedBookings">0</span>
+                    </div>
+                    <div class="stat-card accent">
+                        <span class="stat-label">Total Revenue</span>
+                        <span class="stat-value" id="totalRevenue">Rs 0</span>
+                    </div>
+                </div>
+
+                <div class="recent-bookings-section">
+                    <h3>Recent Bookings</h3>
+                    <div class="table-container">
+                        <table id="recentBookingsTable">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Service</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookingsList">
+                                <!-- Loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule Tab -->
+            <div id="schedule" class="tab-content">
+                <h2 class="page-title">Daily Schedule</h2>
+                <div class="schedule-controls">
+                    <input type="date" id="scheduleDateSelector" class="form-input">
+                </div>
+                <div class="timeline" id="dailyTimeline">
+                    <!-- Loaded via JS -->
+                </div>
+            </div>
+
+            <!-- Performance Tab -->
+            <div id="performance" class="tab-content">
+                <h2 class="page-title">Performance Metrics</h2>
+                <div class="chart-box">
+                    <p>Performance tracking and growth analytics will be displayed here.</p>
+                    <div class="placeholder-chart">
+                        <div class="bar" style="height: 60%"></div>
+                        <div class="bar" style="height: 80%"></div>
+                        <div class="bar" style="height: 45%"></div>
+                        <div class="bar" style="height: 90%"></div>
+                        <div class="bar" style="height: 70%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

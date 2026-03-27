@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Premium haircut booking system. Book your next grooming session with top-rated barbers. Classic cuts, beard trims, and luxury styling services.">
-  <title>SharpCuts - Premium Barbershop & Grooming</title>
+  <meta name="description"
+    content="Premium haircut booking system. Book your next grooming session with top-rated barbers. Classic cuts, beard trims, and luxury styling services.">
+  <title>EasyCut - Premium Barbershop & Grooming</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
   <!-- Navbar -->
@@ -14,19 +17,20 @@
     <div class="container">
       <a href="index.html" class="navbar-logo">
         <div class="logo-icon">✂️</div>
-        <div class="logo-text">Sharp<span>Cuts</span></div>
+        <div class="logo-text">Easy<span>Cut</span></div>
       </a>
 
       <div class="navbar-links" id="navLinks">
         <a href="index.html" class="active">Home</a>
+        <a href="hairstyles.html">Styles</a>
         <a href="#services">Services</a>
         <a href="#why-us">About</a>
         <a href="#contact">Contact</a>
       </div>
 
       <div class="navbar-actions" id="navActions">
-        <a href="login.html" class="btn btn-ghost">Sign In</a>
-        <a href="register.html" class="btn btn-primary">Book Now</a>
+        <a href="auth/auth.html" class="btn btn-ghost">Sign In</a>
+        <a href="auth/auth.html" class="btn btn-primary">Book Now</a>
       </div>
 
       <div class="hamburger" id="hamburger">
@@ -54,12 +58,12 @@
           <span class="highlight">Grooming</span> Game
         </h1>
         <p class="hero-description">
-          Experience premium grooming services with our team of expert barbers. 
+          Experience premium grooming services with our team of expert barbers.
           From classic cuts to modern styles — we craft the perfect look for you.
         </p>
         <div class="hero-buttons">
-          <a href="register.html" class="btn btn-primary btn-lg">
-            Book Appointment →
+          <a href="hairstyles.html" class="btn btn-primary btn-lg">
+            Choose Your Style & Book →
           </a>
           <a href="#services" class="btn btn-outline btn-lg">
             Our Services
@@ -94,21 +98,22 @@
   <section class="services" id="services">
     <div class="container">
       <h2 class="section-title scroll-animate">Our Services</h2>
-      <p class="section-subtitle scroll-animate">Premium grooming experiences tailored to your style. Every visit is a cut above the rest.</p>
+      <p class="section-subtitle scroll-animate">Premium grooming experiences tailored to your style. Every visit is a
+        cut above the rest.</p>
 
       <div class="services-grid">
         <!-- Service 1 -->
         <div class="service-card scroll-animate">
           <div class="service-card-image">
             <img src="assets/images/haircut-service.png" alt="Classic Haircut">
-            <span class="price-badge">From $35</span>
+            <span class="price-badge">From Rs 600</span>
           </div>
           <div class="service-card-body">
             <h3>Classic Haircut</h3>
             <p>Precision cuts tailored to your face shape and personal style. Includes consultation, wash, cut, and styling.</p>
             <div class="service-card-meta">
               <span class="duration">⏱ 45 min</span>
-              <a href="javascript:void(0)" onclick="initiateBooking('Classic Haircut', '$35')" class="book-link">Book Now →</a>
+              <a href="hairstyles.html" class="book-link">Book Now →</a>
             </div>
           </div>
         </div>
@@ -117,14 +122,14 @@
         <div class="service-card scroll-animate">
           <div class="service-card-image">
             <img src="assets/images/beard-service.png" alt="Beard Trim & Shaping">
-            <span class="price-badge">From $25</span>
+            <span class="price-badge">From Rs 500</span>
           </div>
           <div class="service-card-body">
             <h3>Beard Trim & Shaping</h3>
             <p>Expert beard grooming with precision trimming, hot towel treatment, and nourishing beard oil application.</p>
             <div class="service-card-meta">
               <span class="duration">⏱ 30 min</span>
-              <a href="javascript:void(0)" onclick="initiateBooking('Beard Trim & Shaping', '$25')" class="book-link">Book Now →</a>
+              <a href="hairstyles.html" class="book-link">Book Now →</a>
             </div>
           </div>
         </div>
@@ -133,16 +138,46 @@
         <div class="service-card scroll-animate">
           <div class="service-card-image">
             <img src="assets/images/styling-service.png" alt="Premium Styling">
-            <span class="price-badge">From $50</span>
+            <span class="price-badge">From Rs 900</span>
           </div>
           <div class="service-card-body">
             <h3>Premium Styling</h3>
             <p>Complete transformation with premium products. Includes haircut, wash, styling, and personalized grooming tips.</p>
             <div class="service-card-meta">
               <span class="duration">⏱ 60 min</span>
-              <a href="javascript:void(0)" onclick="initiateBooking('Premium Styling', '$50')" class="book-link">Book Now →</a>
+              <a href="hairstyles.html" class="book-link">Book Now →</a>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Home Service Section -->
+  <section class="home-service" id="home-service">
+    <div class="container">
+      <div class="home-service-flex">
+        <div class="home-service-content scroll-animate">
+          <div class="hero-badge" style="background: rgba(212, 175, 55, 0.2); color: var(--color-gold);">
+            ✨ New Service
+          </div>
+          <h2>Barber At <span class="highlight">Your Doorstep</span></h2>
+          <p>Can't make it to the shop? No problem. We bring the premium grooming experience to your home or office. Same expert barbers, same quality equipment, delivered directly to you.</p>
+          <ul class="home-benefits">
+            <li><span>✓</span> Professional-grade portable equipment</li>
+            <li><span>✓</span> Zero commute, maximum convenience</li>
+            <li><span>✓</span> Personalized styling in your own space</li>
+          </ul>
+          <a href="hairstyles.html" class="btn btn-primary btn-lg">Order Home Service →</a>
+        </div>
+        <div class="home-service-image scroll-animate">
+            <div class="image-stack">
+                <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1170&auto=format&fit=crop" alt="Home Grooming" class="main-img">
+                <div class="floating-price">
+                    <span>Starting at</span>
+                    <strong>Rs 50</strong>
+                </div>
+            </div>
         </div>
       </div>
     </div>
@@ -152,7 +187,8 @@
   <section class="why-us" id="why-us">
     <div class="container">
       <h2 class="section-title scroll-animate">Why Choose Us</h2>
-      <p class="section-subtitle scroll-animate">We're not just a barbershop — we're an experience crafted for the modern gentleman.</p>
+      <p class="section-subtitle scroll-animate">We're not just a barbershop — we're an experience crafted for the
+        modern gentleman.</p>
 
       <div class="why-us-grid">
         <div class="why-us-card scroll-animate">
@@ -184,10 +220,11 @@
     <div class="container">
       <div class="cta-content scroll-animate">
         <h2>Ready for a <span class="highlight">Fresh Look</span>?</h2>
-        <p>Book your appointment today and experience the SharpCuts difference. New clients get 20% off their first visit.</p>
+        <p>Book your appointment today and experience the EasyCut difference. New clients get 20% off their first
+          visit.</p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="register.html" class="btn btn-primary btn-lg">Get Started Free</a>
-          <a href="login.html" class="btn btn-outline btn-lg">Sign In</a>
+          <a href="auth/auth.html" class="btn btn-primary btn-lg">Get Started Free</a>
+          <a href="auth/auth.html" class="btn btn-outline btn-lg">Sign In</a>
         </div>
       </div>
     </div>
@@ -198,7 +235,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <div class="logo-text">Sharp<span>Cuts</span></div>
+          <div class="logo-text">Easy<span>Cut</span></div>
           <p>Premium barbershop and grooming services. Elevating your style since 2020.</p>
           <div class="footer-socials">
             <a href="#" aria-label="Facebook">📘</a>
@@ -240,7 +277,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 SharpCuts. All rights reserved. Crafted with ✂️ & ❤️</p>
+        <p>&copy; 2026 EasyCut. All rights reserved. Crafted with ✂️ & ❤️</p>
       </div>
     </div>
   </footer>
@@ -294,4 +331,5 @@
   <script src="js/main.js"></script>
   <script src="js/booking.js"></script>
 </body>
+
 </html>

@@ -53,17 +53,20 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    // Check for user email
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
+      // Block unverified barbers
+      if (user.role === 'barber' && !user.isVerified) {
+        return res.status(403).json({ message: 'Your barber account is pending admin verification. Please wait for approval.' });
+      }
       res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
         phone: user.phone,
         role: user.role,
+        isVerified: user.isVerified,
         token: generateToken(user._id),
       });
     } else {

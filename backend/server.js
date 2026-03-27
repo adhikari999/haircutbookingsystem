@@ -19,7 +19,10 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
-// app.use('/api/services', require('./routes/serviceRoutes'));
+app.use('/api/hairstyles', require('./routes/hairstyleRoutes'));
+app.use('/api/schedules', require('./routes/scheduleRoutes'));
+app.use('/api/admin', require('./routes/adminRoutes'));
+
 
 // Health check route
 app.get('/', (req, res) => {

@@ -7,10 +7,15 @@ const bookingSchema = new mongoose.Schema(
       required: true,
       ref: 'User',
     },
+    barber: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      // required: true, // Optional for now, but good for tracking
+    },
     service: {
       type: String,
       required: [true, 'Please specify a service'],
-      enum: ['Classic Haircut', 'Beard Trim & Shaping', 'Premium Styling', 'Hot Towel Shave'],
+      // enum: ['Classic Haircut', 'Beard Trim & Shaping', 'Premium Styling', 'Hot Towel Shave'],
     },
     date: {
       type: Date,
@@ -19,6 +24,16 @@ const bookingSchema = new mongoose.Schema(
     time: {
       type: String,
       required: [true, 'Please pick a time slot'],
+    },
+    bookingType: {
+      type: String,
+      enum: ['in-shop', 'home-call'],
+      default: 'in-shop',
+      required: true,
+    },
+    address: {
+      type: String,
+      // required for home-call in application logic
     },
     status: {
       type: String,

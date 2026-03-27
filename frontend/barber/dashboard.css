@@ -1,0 +1,217 @@
+/* ============================================
+   DASHBOARD.CSS - Barber Portal Styling
+   ============================================ */
+
+:root {
+    --sidebar-bg: #1a1a1a;
+    --content-bg: #121212;
+    --card-bg: #1e1e1e;
+    --stat-color: #ffd700;
+}
+
+body.barber-layout {
+    background-color: var(--content-bg);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 80px);
+}
+
+.sidebar {
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-user {
+    text-align: center;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.sidebar-user h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-user p {
+    font-size: 0.875rem;
+    color: #888;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: #888;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background-color: var(--stat-color);
+    color: black;
+}
+
+.content-area {
+    padding: 2.5rem;
+    overflow-y: auto;
+}
+
+.page-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-label {
+    display: block;
+    color: #888;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-card.accent .stat-value {
+    color: var(--stat-color);
+}
+
+/* Table Section */
+.recent-bookings-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.table-container {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: rgba(255, 255, 255, 0.02);
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    color: #888;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+}
+
+.status-tag.pending { background: rgba(255, 165, 0, 0.2); color: orange; }
+.status-tag.confirmed { background: rgba(0, 128, 0, 0.2); color: lime; }
+.status-tag.completed { background: rgba(0, 255, 255, 0.2); color: cyan; }
+.status-tag.cancelled { background: rgba(255, 0, 0, 0.2); color: red; }
+
+.action-btns {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+/* Tab Management */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Performance Visual */
+.chart-box {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.placeholder-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    height: 200px;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bar {
+    flex: 1;
+    background-color: var(--stat-color);
+    border-radius: 4px 4px 0 0;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.bar:hover {
+    opacity: 1;
+}
+
+@media (max-width: 900px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        display: none;
+    }
+}
