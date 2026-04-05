@@ -23,7 +23,7 @@ const getSchedules = async (req, res) => {
 // @access  Public
 const getBarbers = async (req, res) => {
   try {
-    const barbers = await User.find({ role: 'barber' }).select('name email phone');
+    const barbers = await User.find({ role: 'barber', isVerified: true }).select('name email phone specialization experience');
     res.json(barbers);
   } catch (err) {
     res.status(500).json({ message: err.message });

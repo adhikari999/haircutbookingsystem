@@ -12,32 +12,32 @@
   <!-- Sidebar -->
   <aside class="admin-sidebar" id="adminSidebar">
     <div class="sidebar-brand">
-      <div class="logo-icon">✂️</div>
+      <div class="logo-icon"></div>
       <div class="logo-text">Easy<span>Cut</span> <small>Admin</small></div>
     </div>
     <nav class="sidebar-nav">
       <a href="#" class="nav-item active" data-section="overview" onclick="showSection('overview',this)">
-        <span class="nav-icon">📊</span> Overview
+        <span class="nav-icon"></span> Overview
       </a>
       <a href="#" class="nav-item" data-section="bookings" onclick="showSection('bookings',this)">
-        <span class="nav-icon">📅</span> Bookings
+        <span class="nav-icon"></span> Bookings
       </a>
       <a href="#" class="nav-item" data-section="barbers" onclick="showSection('barbers',this)">
-        <span class="nav-icon">💈</span> Barbers
+        <span class="nav-icon"></span> Barbers
       </a>
       <a href="#" class="nav-item" data-section="hairstyles" onclick="showSection('hairstyles',this)">
-        <span class="nav-icon">✂️</span> Hairstyles
+        <span class="nav-icon"></span> Hairstyles
       </a>
       <a href="#" class="nav-item" data-section="users" onclick="showSection('users',this)">
-        <span class="nav-icon">👥</span> Customers
+        <span class="nav-icon"></span> Customers
       </a>
     </nav>
     <div class="sidebar-footer">
       <a href="../index.html" class="nav-item">
-        <span class="nav-icon">🏠</span> Back to Site
+        <span class="nav-icon"></span> Back to Site
       </a>
       <a href="#" class="nav-item danger" onclick="handleLogout()">
-        <span class="nav-icon">🚪</span> Logout
+        <span class="nav-icon"></span> Logout
       </a>
     </div>
   </aside>
@@ -46,11 +46,11 @@
   <main class="admin-main">
     <header class="admin-header">
       <div class="header-left">
-        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <button class="sidebar-toggle" onclick="toggleSidebar()">Menu</button>
         <h1 id="pageTitle">Overview</h1>
       </div>
       <div class="header-right">
-        <span class="admin-badge">👑 Admin</span>
+        <span class="admin-badge">Admin</span>
         <span id="adminName">...</span>
       </div>
     </header>
@@ -59,28 +59,28 @@
     <section class="admin-section active" id="section-overview">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon">👥</div>
+          <div class="stat-icon"></div>
           <div class="stat-info">
             <span class="stat-num" id="st-customers">-</span>
             <span class="stat-lbl">Customers</span>
           </div>
         </div>
         <div class="stat-card gold">
-          <div class="stat-icon">💈</div>
+          <div class="stat-icon"></div>
           <div class="stat-info">
             <span class="stat-num" id="st-barbers">-</span>
             <span class="stat-lbl">Barbers</span>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">📅</div>
+          <div class="stat-icon"></div>
           <div class="stat-info">
             <span class="stat-num" id="st-bookings">-</span>
             <span class="stat-lbl">Total Bookings</span>
           </div>
         </div>
         <div class="stat-card success">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"></div>
           <div class="stat-info">
             <span class="stat-num" id="st-revenue">-</span>
             <span class="stat-lbl">Revenue (Rs)</span>
@@ -89,14 +89,14 @@
       </div>
 
       <div class="pending-alert" id="pendingAlert" style="display:none;">
-        <span>⚠️</span>
+        <span></span>
         <span id="pendingAlertText">Barbers pending verification</span>
-        <button onclick="showSection('barbers', document.querySelector('[data-section=barbers]'))">Review Now →</button>
+        <button onclick="showSection('barbers', document.querySelector('[data-section=barbers]'))">Review Now</button>
       </div>
 
       <div class="quick-overview">
         <div class="overview-card">
-          <h3>📋 Quick Stats</h3>
+          <h3>Quick Stats</h3>
           <div class="mini-stat-row"><span>Pending Bookings</span><strong id="st-pending">-</strong></div>
           <div class="mini-stat-row"><span>Completed Bookings</span><strong id="st-completed">-</strong></div>
           <div class="mini-stat-row"><span>Pending Barbers</span><strong id="st-pending-barbers" style="color:var(--color-gold)">-</strong></div>
@@ -126,8 +126,8 @@
         <h2>Barber Management</h2>
         <div class="filter-tabs">
           <button class="filter-tab active" onclick="filterBarbers('all',this)">All</button>
-          <button class="filter-tab" onclick="filterBarbers('pending',this)">⚠️ Pending</button>
-          <button class="filter-tab" onclick="filterBarbers('verified',this)">✅ Verified</button>
+          <button class="filter-tab" onclick="filterBarbers('pending',this)">Pending</button>
+          <button class="filter-tab" onclick="filterBarbers('verified',this)">Verified</button>
         </div>
       </div>
       <div class="cards-grid" id="barbersGrid"></div>

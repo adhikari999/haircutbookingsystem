@@ -160,18 +160,18 @@ function renderBarbers(barbers) {
   }
   grid.innerHTML = barbers.map(b => `
     <div class="barber-card ${b.isVerified ? '' : 'pending'}">
-      <div class="barber-avatar">💈</div>
+      <div class="barber-avatar"></div>
       <div class="barber-name">${b.name}</div>
-      <div class="barber-email">📧 ${b.email}</div>
-      <div class="barber-email">📱 ${b.phone}</div>
-      <div class="barber-spec">✂️ ${b.specialization || 'General'}</div>
+      <div class="barber-email">Email: ${b.email}</div>
+      <div class="barber-email">Phone: ${b.phone}</div>
+      <div class="barber-spec">Spec: ${b.specialization || 'General'}</div>
       <div style="margin-bottom:1rem;">
-        <span class="status-badge ${b.isVerified ? 'verified' : 'unverified'}">${b.isVerified ? '✅ Verified' : '⚠️ Pending'}</span>
+        <span class="status-badge ${b.isVerified ? 'verified' : 'unverified'}">${b.isVerified ? 'Verified' : 'Pending'}</span>
       </div>
       <div class="barber-actions">
         ${!b.isVerified 
-          ? `<button class="btn-sm btn-verify" onclick="verifyBarber('${b._id}', this)">✅ Verify</button>` 
-          : `<button class="btn-sm btn-reject" onclick="rejectBarber('${b._id}', this)">⛔ Unverify</button>`
+          ? `<button class="btn-sm btn-verify" onclick="verifyBarber('${b._id}', this)">Verify</button>` 
+          : `<button class="btn-sm btn-reject" onclick="rejectBarber('${b._id}', this)">Unverify</button>`
         }
         <button class="btn-sm btn-delete" onclick="deleteUser('${b._id}')">Delete</button>
       </div>
@@ -189,7 +189,7 @@ function filterBarbers(type, el) {
 
 async function verifyBarber(id, btn) {
   const orig = btn.textContent;
-  btn.textContent = '⏳ Verifying...';
+  btn.textContent = 'Verifying...';
   btn.disabled = true;
   try {
     const res = await fetch(`${API}/admin/barbers/${id}/verify`, {
@@ -198,16 +198,16 @@ async function verifyBarber(id, btn) {
     });
     const data = await res.json();
     if (res.ok) {
-      showToast('✅ Barber verified successfully!');
+      showToast('Barber verified successfully!');
       loadBarbers();
       loadStats();
     } else {
-      showToast(`❌ Failed: ${data.message}`, true);
+      showToast(`Failed: ${data.message}`, true);
       btn.textContent = orig;
       btn.disabled = false;
     }
   } catch(e) {
-    showToast('❌ Network error. Try again.', true);
+    showToast('Network error. Try again.', true);
     btn.textContent = orig;
     btn.disabled = false;
   }
@@ -215,7 +215,7 @@ async function verifyBarber(id, btn) {
 
 async function rejectBarber(id, btn) {
   if (!confirm('Un-verify this barber? They will not be able to log in.')) return;
-  btn.textContent = '⏳...';
+  btn.textContent = '...';
   btn.disabled = true;
   try {
     const res = await fetch(`${API}/admin/barbers/${id}/reject`, {
@@ -224,16 +224,16 @@ async function rejectBarber(id, btn) {
     });
     const data = await res.json();
     if (res.ok) {
-      showToast('⚠️ Barber unverified.');
+      showToast('Barber unverified.');
       loadBarbers();
       loadStats();
     } else {
-      showToast(`❌ Failed: ${data.message}`, true);
-      btn.textContent = '⛔ Unverify';
+      showToast(`Failed: ${data.message}`, true);
+      btn.textContent = 'Unverify';
       btn.disabled = false;
     }
   } catch(e) {
-    showToast('❌ Network error.', true);
+    showToast('Network error.', true);
     btn.disabled = false;
   }
 }

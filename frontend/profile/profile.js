@@ -33,11 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const welcomeMsg = document.getElementById('dashboardWelcomeMsg');
 
   if (user.role === 'barber') {
-    if (dashboardTitle) dashboardTitle.textContent = '💈 Barber Dashboard';
+    if (dashboardTitle) dashboardTitle.textContent = 'Barber Dashboard';
     if (welcomeMsg) welcomeMsg.textContent = 'Manage your clients, schedules, and grooming services.';
     if (roleBadge) roleBadge.textContent = 'PRO BARBER';
   } else {
-    if (dashboardTitle) dashboardTitle.textContent = '👤 Customer Dashboard';
+    if (dashboardTitle) dashboardTitle.textContent = 'Customer Dashboard';
     if (welcomeMsg) welcomeMsg.textContent = 'View your upcoming appointments and booking history.';
     if (roleBadge) roleBadge.textContent = 'VALUED CLIENT';
   }
@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Populate profile data
   document.getElementById('profileName').textContent = user.name || 'User Member';
   document.getElementById('profileRole').textContent = capitalizeRole(user.role);
-  document.getElementById('profileRoleIcon').textContent = user.role === 'barber' ? '💈' : '👤';
+  document.getElementById('profileRoleIcon').textContent = '';
 
   // Avatar initial
-  const initials = user.name ? user.name.charAt(0).toUpperCase() : '👤';
+  const initials = user.name ? user.name.charAt(0).toUpperCase() : '';
   document.getElementById('avatarInitial').textContent = initials;
 
   // Personal info
@@ -122,7 +122,7 @@ async function fetchBookings() {
     document.getElementById('statBookings').textContent = bookings.length;
     const completedCount = bookings.filter(b => b.status === 'completed').length;
     document.getElementById('statCompleted').textContent = completedCount;
-    if (bookings.length > 5) document.getElementById('statStatus').textContent = '🎖️';
+    if (bookings.length > 5) document.getElementById('statStatus').textContent = '';
 
     // Render list
     listContainer.innerHTML = bookings.map(booking => `
@@ -152,10 +152,7 @@ async function fetchBookings() {
 }
 
 function getServiceIcon(service) {
-  if (service.includes('Haircut')) return '✂️';
-  if (service.includes('Beard')) return '🪒';
-  if (service.includes('Styling')) return '🧴';
-  return '💈';
+  return '';
 }
 
 function formatDate(dateString) {

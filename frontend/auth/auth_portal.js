@@ -5,6 +5,23 @@
 const API_BASE_URL = 'http://localhost:5000/api';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ---- Check if user is already logged in ----
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+
+    if (token && userData) {
+        const user = JSON.parse(userData);
+        // User is already logged in, redirect to appropriate dashboard
+        if (user.role === 'admin') {
+            window.location.href = '../admin/dashboard.html';
+        } else if (user.role === 'barber') {
+            window.location.href = '../barber/dashboard.html';
+        } else {
+            window.location.href = '../profile/profile.html';
+        }
+        return; // Stop execution if redirecting
+    }
+
     // ---- Tab Switching ----
     const authTabs = document.querySelector('.auth-tabs');
     const tabBtns = document.querySelectorAll('.tab-btn');
@@ -136,9 +153,9 @@ function togglePass(id, icon) {
     const input = document.getElementById(id);
     if (input.type === 'password') {
         input.type = 'text';
-        icon.textContent = '🙈';
+        icon.textContent = 'Hide';
     } else {
         input.type = 'password';
-        icon.textContent = '👁️';
+        icon.textContent = 'Show';
     }
 }

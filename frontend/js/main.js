@@ -202,7 +202,7 @@ function updateNavbarAuth() {
     const userData = JSON.parse(user);
     const firstName = userData.name ? userData.name.split(' ')[0] : 'Member';
     const role = userData.role;
-    const roleIcon = role === 'barber' ? '💈' : role === 'admin' ? '👑' : '👤';
+    const roleIcon = '';
 
     // Determine the right dashboard path based on role and current page depth
     const pathname = window.location.pathname;
@@ -260,5 +260,5 @@ function handleLogout() {
   window.location.href = authPath;
 }
 
-console.log('%c✂️ EasyCut', 'color: #d4af37; font-size: 24px; font-weight: bold;');
+console.log('%cEasyCut', 'color: #d4af37; font-size: 24px; font-weight: bold;');
 console.log('%cPremium Barbershop & Grooming', 'color: #a0a0a0; font-size: 12px;');

@@ -25,7 +25,7 @@
 .auth-tabs {
   display: flex;
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.03);
   padding: 4px;
   border-radius: var(--radius-md);
   margin-bottom: var(--space-xl);

@@ -59,7 +59,7 @@ const barbers = [
     role: 'barber',
     isVerified: true,
     specialization: 'Fades & Modern Styles',
-    experience: '8 years',
+    experience: '5 years',
   },
   {
     name: 'Barber Raju Tamang',
@@ -98,7 +98,7 @@ const admin = {
   email: 'admin@easycut.com',
   phone: '9800000001',
   password: 'admin@123',
-  role: 'adminadmin@123',
+  role: 'admin',
   isVerified: true,
 };
 
@@ -112,22 +112,17 @@ const seedDB = async () => {
     await Hairstyle.insertMany(hairstyles);
     console.log('Hairstyles seeded!');
 
-    // Admin
-    const adminExists = await User.findOne({ email: admin.email });
-    if (!adminExists) {
-      await User.create(admin);
-      console.log('Admin created: admin@easycut.com / admin@123');
-    } else {
-      console.log('Admin already exists.');
-    }
+    // Admin & Barbers (Clear and re-create to ensure roles and verification are correct)
+    await User.deleteMany({ role: { $in: ['admin', 'barber'] } });
 
-    // Barbers
+    // Create Admin
+    await User.create(admin);
+    console.log('Admin created: admin@easycut.com / admin@123');
+
+    // Create Barbers
     for (const b of barbers) {
-      const exists = await User.findOne({ email: b.email });
-      if (!exists) {
-        await User.create(b);
-        console.log(`Barber created: ${b.email}`);
-      }
+      await User.create(b);
+      console.log(`Barber created: ${b.email}`);
     }
 
     mongoose.disconnect();
