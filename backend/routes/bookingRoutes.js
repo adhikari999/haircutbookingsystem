@@ -6,7 +6,8 @@ const {
   cancelBooking,
   getAllBookings,
   getBarberStats,
-  updateBookingStatus
+  updateBookingStatus,
+  deleteBooking
 } = require('../controllers/bookingController');
 const { protect, barber } = require('../middleware/authMiddleware');
 
@@ -18,5 +19,6 @@ router.put('/:id/cancel', protect, cancelBooking);
 router.get('/all', protect, barber, getAllBookings);
 router.get('/stats', protect, barber, getBarberStats);
 router.put('/:id/status', protect, barber, updateBookingStatus);
+router.delete('/:id', protect, barber, deleteBooking);
 
 module.exports = router;

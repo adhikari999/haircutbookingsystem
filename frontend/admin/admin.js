@@ -76,7 +76,7 @@ function renderBookings(bookings) {
       <td>${b.date ? new Date(b.date).toLocaleDateString('en-IN') : '-'}</td>
       <td>${b.time}</td>
       <td><span class="status-badge ${b.bookingType === 'home-call' ? 'confirmed' : 'pending'}">${b.bookingType || 'in-shop'}</span></td>
-      <td><span class="status-badge ${b.status}">${b.status}</span></td>
+      <td><span class="status-badge ${b.status === 'rejected' ? 'cancelled' : b.status}">${b.status === 'rejected' ? 'cancelled' : b.status}</span></td>
       <td>Rs ${b.totalPrice?.toLocaleString()}</td>
       <td>
         <div class="action-btns">

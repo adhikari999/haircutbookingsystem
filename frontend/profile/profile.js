@@ -44,18 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Populate profile data
   document.getElementById('profileName').textContent = user.name || 'User Member';
-  document.getElementById('profileRole').textContent = capitalizeRole(user.role);
-  document.getElementById('profileRoleIcon').textContent = '';
-
-  // Avatar initial
-  const initials = user.name ? user.name.charAt(0).toUpperCase() : '';
-  document.getElementById('avatarInitial').textContent = initials;
-
-  // Personal info
-  document.getElementById('infoName').textContent = user.name || '-';
-  document.getElementById('infoEmail').textContent = user.email || '-';
-  document.getElementById('infoPhone').textContent = user.phone || '-';
-  document.getElementById('infoRole').textContent = capitalizeRole(user.role);
+  
+  const roleEl = document.getElementById('profileRole');
+  if (roleEl) {
+      roleEl.textContent = user.role === 'barber' ? 'PRO BARBER' : 'VALUED CLIENT';
+  }
 
   // Member since
   const now = new Date();
@@ -126,22 +119,20 @@ async function fetchBookings() {
 
     // Render list
     listContainer.innerHTML = bookings.map(booking => `
-      <div class="info-row" style="flex-wrap: wrap; gap: 1rem; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 200px;">
-          <div style="width: 48px; height: 48px; background: var(--color-surface); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
-            ${getServiceIcon(booking.service)}
-          </div>
-          <div>
-            <h4 style="font-size: 0.95rem; font-weight: 600;">${booking.service}</h4>
-            <p style="font-size: 0.82rem; color: var(--color-text-muted);">${formatDate(booking.date)} at ${booking.time}</p>
-          </div>
+      <div class="ritual-card">
+        <div class="ritual-header">
+          <h3>${booking.service}</h3>
+          <span class="ritual-badge">${booking.status === 'rejected' ? 'CANCELLED' : booking.status.toUpperCase()}</span>
         </div>
-        
-        <div style="display: flex; align-items: center; gap: 2rem;">
-          <div class="status-badge ${booking.status}" style="padding: 0.2rem 0.7rem; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; background: ${getStatusBg(booking.status)}; color: ${getStatusColor(booking.status)}; border: 1px solid ${getStatusBorder(booking.status)};">
-            ${booking.status}
+        <div class="ritual-time">
+          ${formatDate(booking.date)} &bull; ${booking.time}
+        </div>
+        <div class="ritual-bottom">
+          <div class="ritual-price">
+            <i class="bi bi-wallet2"></i> 
+            <span>Rs ${booking.totalPrice?.toLocaleString() || '---'}</span>
           </div>
-          <span style="font-weight: 700; color: var(--color-gold); min-width: 60px; text-align: right;">Rs ${booking.totalPrice?.toLocaleString()}</span>
+          <a href="#" class="ritual-details">DETAILS <i class="bi bi-chevron-right"></i></a>
         </div>
       </div>
     `).join('');
@@ -163,20 +154,20 @@ function formatDate(dateString) {
 function getStatusBg(status) {
   if (status === 'confirmed') return 'rgba(46, 204, 113, 0.1)';
   if (status === 'pending') return 'rgba(243, 156, 18, 0.1)';
-  if (status === 'cancelled') return 'rgba(231, 76, 60, 0.1)';
+  if (status === 'cancelled' || status === 'rejected') return 'rgba(231, 76, 60, 0.1)';
   return 'rgba(255, 255, 255, 0.05)';
 }
 
 function getStatusColor(status) {
   if (status === 'confirmed') return 'var(--color-success)';
   if (status === 'pending') return 'var(--color-warning)';
-  if (status === 'cancelled') return 'var(--color-error)';
+  if (status === 'cancelled' || status === 'rejected') return 'var(--color-error)';
   return 'var(--color-text-muted)';
 }
 
 function getStatusBorder(status) {
   if (status === 'confirmed') return 'rgba(46, 204, 113, 0.3)';
   if (status === 'pending') return 'rgba(243, 156, 18, 0.3)';
-  if (status === 'cancelled') return 'rgba(231, 76, 60, 0.3)';
+  if (status === 'cancelled' || status === 'rejected') return 'rgba(231, 76, 60, 0.3)';
   return 'rgba(255, 255, 255, 0.1)';
 }

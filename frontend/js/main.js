@@ -6,6 +6,7 @@
 const navbar = document.getElementById('navbar');
 
 function handleNavbarScroll() {
+  if (!navbar) return;
   if (window.scrollY > 50) {
     navbar.classList.add('scrolled');
   } else {
@@ -89,7 +90,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     e.preventDefault();
     const target = document.querySelector(targetId);
     if (target) {
-      const navHeight = navbar.offsetHeight;
+      const navHeight = navbar ? navbar.offsetHeight : 0;
       const targetPosition = target.offsetTop - navHeight - 20;
       window.scrollTo({
         top: targetPosition,
@@ -196,6 +197,14 @@ function updateNavbarAuth() {
   const user = localStorage.getItem('user');
   const navActionsEl = document.getElementById('navActions');
   
+  // Hide Styles link for guests
+  const stylesLinks = document.querySelectorAll('a[href*="hairstyles.html"]');
+  if (token && user) {
+    stylesLinks.forEach(link => link.style.display = '');
+  } else {
+    stylesLinks.forEach(link => link.style.display = 'none');
+  }
+
   if (!navActionsEl) return;
   
   if (token && user) {

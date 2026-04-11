@@ -18,7 +18,7 @@ async function fetchStyles() {
     try {
         const res = await fetch(API_STYLES_URL);
         const styles = await res.json();
-        
+
         if (styles.length === 0) {
             grid.innerHTML = '<div class="loading-spinner">No styles found. Add some from the admin panel!</div>';
             return;
@@ -33,12 +33,12 @@ async function fetchStyles() {
 function renderStyles(styles) {
     const grid = document.getElementById('stylesGrid');
     grid.innerHTML = '';
-    
+
     styles.forEach(style => {
         const card = document.createElement('div');
         card.className = 'style-card scroll-animate';
         card.setAttribute('data-category', style.category);
-        
+
         card.innerHTML = `
             <div class="style-card-image">
                 <img src="${style.image}" alt="${style.name}" onerror="this.src='https://images.unsplash.com/photo-1621605815841-28d9446e364f?q=80&w=1170&auto=format&fit=crop'">
@@ -69,10 +69,10 @@ function setupFilters() {
         btn.addEventListener('click', () => {
             btns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             const category = btn.getAttribute('data-category');
             const cards = document.querySelectorAll('.style-card');
-            
+
             cards.forEach(card => {
                 const cardCat = card.getAttribute('data-category');
                 if (category === 'all' || category === cardCat) {
@@ -90,23 +90,24 @@ let selectedStyle = null;
 let selectedPrice = 0;
 
 async function openStyleBooking(name, price) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = 'auth/auth.html?message=please_login_to_book';
-        return;
-    }
-
     selectedStyle = name;
     selectedPrice = price;
+
+    const styleLabel = document.getElementById('modalStyleName');
+    const priceLabel = document.getElementById('modalPrice');
     
-    document.getElementById('modalStyleName').textContent = name;
-    document.getElementById('modalPrice').textContent = `Rs ${price.toLocaleString()}`;
-    
+    if (styleLabel) styleLabel.textContent = name;
+    if (priceLabel) priceLabel.textContent = `Rs ${price.toLocaleString()}`;
+
     // Fetch Barbers
     await fetchBarbers();
-    
+
     // Show Modal
-    document.getElementById('bookingModal').style.display = 'flex';
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 async function fetchBarbers() {
@@ -114,10 +115,10 @@ async function fetchBarbers() {
     try {
         const res = await fetch(API_BARBERS_URL);
         const barbers = await res.json();
-        
+
         barberSelect.innerHTML = '<option value="" disabled selected>Select a Barber</option>';
         barbers.forEach(b => {
-            barberSelect.innerHTML += `<option value="${b._id}">${b.name}</option>`;
+             barberSelect.innerHTML += `<option value="${b._id}">${b.name}</option>`;
         });
     } catch (err) {
         console.error('Failed to fetch barbers');
@@ -163,6 +164,12 @@ function setupBookingForm() {
     bookingForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Please log in to confirm your booking.');
+            window.location.href = 'auth/auth.html?message=please_login_to_book';
+            return;
+        }
+        
         const submitBtn = document.getElementById('confirmBookingBtn');
         
         const bookingData = {
@@ -176,6 +183,7 @@ function setupBookingForm() {
         };
 
         setLoading(submitBtn, true);
+
         try {
             const res = await fetch(API_BOOKING_URL, {
                 method: 'POST',

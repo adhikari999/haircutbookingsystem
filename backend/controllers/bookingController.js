@@ -48,7 +48,14 @@ const createBooking = async (req, res) => {
 // @access  Private
 const getMyBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find({ user: req.user._id }).sort({ date: 1 });
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+    const bookings = await Booking.find({ 
+      user: req.user._id,
+      date: { $gte: sixMonthsAgo }
+    }).sort({ date: -1, time: -1 });
+    
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -85,7 +92,18 @@ const cancelBooking = async (req, res) => {
 // @access  Private (Barber/Admin)
 const getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find().populate('user', 'name email phone').sort({ date: 1, time: 1 });
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+    const query = { date: { $gte: sixMonthsAgo } };
+    if (req.user.role === 'barber') {
+      query.barber = req.user._id;
+    }
+
+    const bookings = await Booking.find(query)
+    .populate('user', 'name email phone')
+    .sort({ date: -1, time: -1 });
+    
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -97,11 +115,22 @@ const getAllBookings = async (req, res) => {
 // @access  Private (Barber/Admin)
 const getBarberStats = async (req, res) => {
   try {
-    const totalBookings = await Booking.countDocuments();
-    const completedBookings = await Booking.countDocuments({ status: 'completed' });
-    const pendingBookings = await Booking.countDocuments({ status: 'pending' });
+    const query = {};
+    if (req.user.role === 'barber') {
+      query.barber = req.user._id;
+    }
+
+    const totalBookings = await Booking.countDocuments(query);
+    const completedBookings = await Booking.countDocuments({ ...query, status: 'completed' });
+    const pendingBookings = await Booking.countDocuments({ ...query, status: 'pending' });
+    
+    const matchStage = { status: 'completed' };
+    if (req.user.role === 'barber') {
+      matchStage.barber = req.user._id;
+    }
+
     const revenue = await Booking.aggregate([
-      { $match: { status: 'completed' } },
+      { $match: matchStage },
       { $group: { _id: null, total: { $sum: '$totalPrice' } } }
     ]);
 
@@ -134,11 +163,27 @@ const updateBookingStatus = async (req, res) => {
   }
 };
 
+const deleteBooking = async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    await Booking.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Booking deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createBooking,
   getMyBookings,
   cancelBooking,
   getAllBookings,
   getBarberStats,
-  updateBookingStatus
+  updateBookingStatus,
+  deleteBooking
 };

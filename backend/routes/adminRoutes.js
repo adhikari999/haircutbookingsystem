@@ -52,11 +52,21 @@ router.put('/barbers/:id/reject', protect, admin, async (req, res) => {
 // ---- Bookings CRUD ----
 // GET all bookings
 router.get('/bookings', protect, admin, async (req, res) => {
-  const bookings = await Booking.find()
+  try {
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+    const bookings = await Booking.find({
+      date: { $gte: sixMonthsAgo }
+    })
     .populate('user', 'name email phone')
     .populate('barber', 'name email')
-    .sort({ createdAt: -1 });
-  res.json(bookings);
+    .sort({ date: -1, time: -1 });
+    
+    res.json(bookings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // POST create booking (admin)
@@ -72,7 +82,7 @@ router.post('/bookings', protect, admin, async (req, res) => {
 // PUT update booking
 router.put('/bookings/:id', protect, admin, async (req, res) => {
   try {
-    const booking = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const booking = await Booking.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
     res.json(booking);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -89,7 +99,7 @@ router.delete('/bookings/:id', protect, admin, async (req, res) => {
 // PUT update hairstyle
 router.put('/hairstyles/:id', protect, admin, async (req, res) => {
   try {
-    const hs = await Hairstyle.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const hs = await Hairstyle.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
     res.json(hs);
   } catch (err) {
     res.status(400).json({ message: err.message });

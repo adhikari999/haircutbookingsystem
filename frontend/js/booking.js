@@ -5,25 +5,27 @@
 const API_BOOKING_URL = 'http://localhost:5000/api/bookings';
 
 // Check if logged in before allowing booking
+// Allow anyone to see the modal; check for login only on final confirmation
 function initiateBooking(serviceName, price) {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    window.location.href = 'auth/auth.html?message=please_login_to_book';
-    return;
-  }
-
-  // Set modal data
-  document.getElementById('bookingModalService').textContent = serviceName;
-  document.getElementById('bookingModalPrice').textContent = price;
+  // Set modal data (supporting multiple IDs for shared logic)
+  const serviceLabel = document.getElementById('bookingModalService') || document.getElementById('modalStyleName');
+  const priceLabel = document.getElementById('bookingModalPrice') || document.getElementById('modalPrice');
+  
+  if (serviceLabel) serviceLabel.textContent = serviceName;
+  if (priceLabel) priceLabel.textContent = price;
   
   // Reset form
-  document.getElementById('bookingDate').value = "";
-  document.getElementById('bookingTime').value = "";
+  const dateInput = document.getElementById('bookingDate');
+  const timeInput = document.getElementById('bookingTime');
+  if (dateInput) dateInput.value = "";
+  if (timeInput) timeInput.value = "";
   
   // Show modal
   const modal = document.getElementById('bookingModal');
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+  if (modal) {
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 function closeBookingModal() {
@@ -39,8 +41,15 @@ if (bookingForm) {
     e.preventDefault();
     
     const token = localStorage.getItem('token');
-    const service = document.getElementById('bookingModalService').textContent;
-    const priceRaw = document.getElementById('bookingModalPrice').textContent;
+    if (!token) {
+      alert('Please log in to complete your booking.');
+      window.location.href = 'auth/auth.html?message=please_login_to_book';
+      return;
+    }
+
+    const service = (document.getElementById('bookingModalService') || document.getElementById('modalStyleName'))?.textContent;
+    const priceLabel = document.getElementById('bookingModalPrice') || document.getElementById('modalPrice');
+    const priceRaw = priceLabel?.textContent || "0";
     const totalPrice = parseFloat(priceRaw.replace(/[^0-9.]/g, ''));
     const date = document.getElementById('bookingDate').value;
     const time = document.getElementById('bookingTime').value;
