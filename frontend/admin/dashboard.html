@@ -14,8 +14,12 @@
   <!-- Sidebar -->
   <aside class="admin-sidebar" id="adminSidebar">
     <div class="sidebar-brand">
-      <div class="logo-icon"><img src="../assets/logo.png" alt="EasyCut"></div>
-      <div class="logo-text">Easy<span>Cut</span> <small>Admin</small></div>
+      <div class="logo-icon" style="display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+        </svg>
+      </div>
+      <div class="logo-text" style="font-weight: 800; font-size: 1.6rem; letter-spacing: 1px; color: white; margin-left: 8px;">Easy<span style="color: var(--color-gold);">Cut</span></div>
     </div>
     <nav class="sidebar-nav">
       <a href="#" class="nav-item active" data-section="overview" onclick="showSection('overview',this)">
@@ -34,9 +38,9 @@
         <span class="nav-icon"></span> Customers
       </a>
     </nav>
-    <div class="sidebar-footer">
-      <a href="#" class="nav-item danger" onclick="handleLogout()">
-        <span class="nav-icon"></span> Logout
+    <div class="sidebar-footer" style="padding: 1rem 0; border-top: 1px solid #333333; margin-top: auto;">
+      <a href="#" class="nav-item danger" onclick="handleLogout()" style="padding: 0.8rem 1rem; color: #e74a3b; text-decoration: none; font-weight: bold; border-radius: 4px; display: flex; align-items: center; gap: 8px;">
+        <i class="bi bi-box-arrow-right"></i> Logout
       </a>
     </div>
   </aside>

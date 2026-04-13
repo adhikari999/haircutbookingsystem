@@ -13,19 +13,21 @@
     <nav class="navbar scrolled">
         <div class="container">
             <a href="../index.html" class="navbar-logo">
-                <div class="logo-icon"><img src="../assets/logo.png" alt="EasyCut"></div>
-                <div class="logo-text">Easy<span>Cut</span></div>
+                <div class="logo-icon" style="display: flex; align-items: center; justify-content: center;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+                  </svg>
+                </div>
+                <div class="logo-text" style="font-weight: 800; font-size: 1.6rem; letter-spacing: 1px; color: white; margin-left: 8px;">Easy<span style="color: var(--color-gold);">Cut</span></div>
             </a>
-            <div class="navbar-actions">
-                <button class="btn btn-outline-gold btn-sm rounded-circle me-2" title="New Booking">
-                    <i class="bi bi-calendar-plus"></i>
-                </button>
-                <span id="barberName" style="color: var(--color-gold);">
-                    <i class="bi bi-person-check me-1"></i> Barber Mode
+            <div class="navbar-actions" style="display: flex; align-items: center; gap: 20px;">
+                <div class="revenue-summary" style="text-align: right;">
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px;">Last Month Revenue</div>
+                    <div id="totalRevenueHeader" style="color: var(--color-gold); font-weight: 800; font-size: 1.2rem;">Rs 0</div>
+                </div>
+                <span id="barberName" style="color: white; font-weight: 700; font-size: 1.1rem; border-left: 1px solid #333; padding-left: 20px;">
+                    ...
                 </span>
-                <button onclick="logout()" class="btn btn-ghost">
-                    <i class="bi bi-door-open me-1"></i> Logout
-                </button>
             </div>
         </div>
     </nav>
@@ -33,7 +35,7 @@
     <main class="dashboard-container">
         <aside class="sidebar">
             <div class="sidebar-user">
-                <div class="user-avatar"></div>
+                <div class="user-avatar" id="barberInitial">B</div>
                 <h3 id="sidebarName">Barber Name</h3>
                 <p>Management Portal</p>
             </div>
@@ -42,6 +44,11 @@
                 <a href="#schedule">Schedule</a>
                 <a href="#history">Booking History</a>
             </nav>
+            <div class="sidebar-footer" style="padding: 1rem 0; border-top: 1px solid #333333; margin-top: auto;">
+                <a href="#" class="nav-item danger" onclick="logout()" style="padding: 0.8rem 1rem; color: #e74a3b; text-decoration: none; font-weight: bold; border-radius: 4px; display: flex; align-items: center; gap: 8px;">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
+            </div>
         </aside>
 
         <section class="content-area">
@@ -67,10 +74,10 @@
                     </div>
                 </div>
 
-                <div class="recent-bookings-section">
-                    <h3>Recent Bookings</h3>
+                <div class="recent-bookings-section mt-5">
+                    <h3 class="mb-3">Recent Activity</h3>
                     <div class="table-container">
-                        <table id="recentBookingsTable">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Customer</th>
@@ -101,15 +108,15 @@
                 <div class="table-container mt-4">
                     <table>
                         <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Customer</th>
-                                <th>Service</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
+                             <tr>
+                                 <th>Date</th>
+                                 <th>Time</th>
+                                 <th>Customer</th>
+                                 <th>Service</th>
+                                 <th>Type & Location</th>
+                                 <th>Status</th>
+                                 <th>Actions</th>
+                             </tr>
                         </thead>
                         <tbody id="fullScheduleList">
                             <!-- Loaded via JS -->
@@ -124,14 +131,14 @@
                 <div class="table-container">
                     <table>
                         <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Customer</th>
-                                <th>Service</th>
-                                <th>Time</th>
-                                <th>Type</th>
-                                <th>Final Status</th>
-                            </tr>
+                             <tr>
+                                 <th>Date</th>
+                                 <th>Customer</th>
+                                 <th>Service</th>
+                                 <th>Time</th>
+                                 <th>Type & Location</th>
+                                 <th>Final Status</th>
+                             </tr>
                         </thead>
                         <tbody id="historyList">
                             <!-- All non-active bookings (completed/cancelled/rejected) will appear here -->
@@ -145,3 +152,4 @@
     <script src="dashboard.js"></script>
 </body>
 </html>
+

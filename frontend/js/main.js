@@ -240,7 +240,7 @@ function updateNavbarAuth() {
     const heroButtons = document.querySelector('.hero-buttons');
     if (heroButtons) {
       heroButtons.innerHTML = `
-        <a href="${dashPath}" class="btn btn-primary btn-lg">View Dashboard →</a>
+        <a href="${dashPath}" class="btn btn-primary btn-lg">View Dashboard</a>
         <a href="#services" class="btn btn-outline btn-lg">Our Services</a>
       `;
     }

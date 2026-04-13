@@ -37,6 +37,24 @@ function closeBookingModal() {
 // Handle booking form submission
 const bookingForm = document.getElementById('bookingForm');
 if (bookingForm) {
+  // Toggle Address field based on booking type
+  const bookingTypeRadios = document.getElementsByName('bookingType');
+  const addressGroup = document.getElementById('homeAddressGroup');
+  
+  bookingTypeRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      if (e.target.value === 'home-call') {
+        if (addressGroup) addressGroup.style.display = 'block';
+        const addressInput = document.getElementById('bookingAddress');
+        if (addressInput) addressInput.required = true;
+      } else {
+        if (addressGroup) addressGroup.style.display = 'none';
+        const addressInput = document.getElementById('bookingAddress');
+        if (addressInput) addressInput.required = false;
+      }
+    });
+  });
+
   bookingForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     
@@ -53,7 +71,14 @@ if (bookingForm) {
     const totalPrice = parseFloat(priceRaw.replace(/[^0-9.]/g, ''));
     const date = document.getElementById('bookingDate').value;
     const time = document.getElementById('bookingTime').value;
+    const bookingType = document.querySelector('input[name="bookingType"]:checked').value;
+    const address = document.getElementById('bookingAddress')?.value || '';
     const submitBtn = document.getElementById('confirmBookingBtn');
+
+    if (bookingType === 'home-call' && !address) {
+      alert('Please provide your home address for home call service.');
+      return;
+    }
 
     if (!date || !time) {
       alert('Please select both date and time');
@@ -69,7 +94,7 @@ if (bookingForm) {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ service, date, time, totalPrice })
+        body: JSON.stringify({ service, date, time, totalPrice, bookingType, address })
       });
 
       const data = await response.json();

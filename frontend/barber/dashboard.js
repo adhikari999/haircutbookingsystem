@@ -35,8 +35,10 @@ function checkBarberAuth() {
         return;
     }
 
-    document.getElementById('barberName').textContent = user.name;
+    document.getElementById('barberName').innerHTML = `<i class="bi bi-person-circle me-2"></i>${user.name}`;
     document.getElementById('sidebarName').textContent = user.name;
+    const initialEl = document.getElementById('barberInitial');
+    if (initialEl) initialEl.textContent = user.name.charAt(0).toUpperCase();
 }
 
 async function loadDashboardStats() {
@@ -48,10 +50,17 @@ async function loadDashboardStats() {
         const stats = await response.json();
         
         if (response.ok) {
-            document.getElementById('totalBookings').textContent = stats.totalBookings;
-            document.getElementById('pendingBookings').textContent = stats.pendingBookings;
-            document.getElementById('completedBookings').textContent = stats.completedBookings;
-            document.getElementById('totalRevenue').textContent = `Rs ${stats.revenue.toLocaleString()}`;
+            const elTotal = document.getElementById('totalBookings');
+            const elPending = document.getElementById('pendingBookings');
+            const elCompleted = document.getElementById('completedBookings');
+            const elRevenue = document.getElementById('totalRevenue');
+            const elRevenueHeader = document.getElementById('totalRevenueHeader');
+
+            if (elTotal) elTotal.textContent = stats.totalBookings;
+            if (elPending) elPending.textContent = stats.pendingBookings;
+            if (elCompleted) elCompleted.textContent = stats.completedBookings;
+            if (elRevenue) elRevenue.textContent = `Rs ${stats.revenue.toLocaleString()}`;
+            if (elRevenueHeader) elRevenueHeader.textContent = `Rs ${stats.revenue.toLocaleString()}`;
         }
     } catch (error) {
         console.error('Stats loading error:', error);
@@ -136,7 +145,10 @@ function loadDailySchedule() {
                 <small style="color:#888;">${b.user?.phone || ''}</small>
             </td>
             <td>${b.service}</td>
-            <td style="text-transform: capitalize;">${b.bookingType}</td>
+            <td>
+                <div style="text-transform: capitalize; font-weight: 600;">${b.bookingType}</div>
+                ${b.address ? `<div style="font-size: 0.8rem; color: var(--color-gold); margin-top: 4px;"><i class="bi bi-geo-alt-fill me-1"></i>${b.address}</div>` : ''}
+            </td>
             <td><span class="status-tag ${b.status === 'rejected' ? 'cancelled' : b.status}">${b.status === 'rejected' ? 'cancelled' : b.status}</span></td>
             <td>
                 <div class="action-btns">
@@ -170,7 +182,10 @@ function renderHistory(bookings) {
             <td style="font-weight:600;">${b.user?.name || 'Guest'}</td>
             <td>${b.service}</td>
             <td>${b.time}</td>
-            <td style="text-transform: capitalize;">${b.bookingType}</td>
+            <td>
+                <div style="text-transform: capitalize; font-weight: 600;">${b.bookingType}</div>
+                ${b.address ? `<div style="font-size: 0.8rem; color: var(--color-gold); margin-top: 4px;"><i class="bi bi-geo-alt-fill me-1"></i>${b.address}</div>` : ''}
+            </td>
             <td><span class="status-tag ${b.status === 'rejected' ? 'cancelled' : b.status}">${b.status === 'rejected' ? 'cancelled' : b.status}</span></td>
         </tr>
     `).join('');

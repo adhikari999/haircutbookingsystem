@@ -124,7 +124,10 @@ const getBarberStats = async (req, res) => {
     const completedBookings = await Booking.countDocuments({ ...query, status: 'completed' });
     const pendingBookings = await Booking.countDocuments({ ...query, status: 'pending' });
     
-    const matchStage = { status: 'completed' };
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const matchStage = { status: 'completed', date: { $gte: thirtyDaysAgo } };
     if (req.user.role === 'barber') {
       matchStage.barber = req.user._id;
     }
